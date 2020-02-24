@@ -64,7 +64,7 @@ export default {
         .toLowerCase()
         .split('x')
         .map((size) => {
-          return size * 2000
+          return size * 2
         })
     },
     responsiveImage() {
