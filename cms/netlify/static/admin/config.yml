@@ -1,0 +1,33 @@
+backend:
+  name: git-gateway
+  branch: master # Branch to update (optional; defaults to master)
+# This line should *not* be indented
+media_folder: "assets/uploads" # Media files will be stored in the repo under images/uploads
+public_folder: "uploads" # The src attribute for uploaded media will begin with /images/uploads
+site_url: https://awake-template.netlify.com
+logo_url: https://awake-template.netlify.com/logo-frames/logo-f0.svg
+collections:
+  - name: "posts" # Used in routes, e.g., /admin/collections/blog
+    label: "Posts" # Used in the UI
+    preview_path: "{{slug}}"
+    folder: "content/posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Category", name: "category", widget: "relation", collection: "categories", searchFields: "name", valueField: "name", multiple: true}
+      - {label: "Author", name: "author", widget: "string", default: "Daniel Kelly"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "featureImage", widget: "image"}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "categories"
+    label: "Categories"
+    folder: "content/categories"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Description", name: "description", widget: "markdown"}

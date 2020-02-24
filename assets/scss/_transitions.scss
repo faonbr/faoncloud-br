@@ -1,0 +1,31 @@
+/* purgecss start ignore */
+.page-enter-active,
+.page-leave-active {
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: .35s;
+  & + * + .site-footer{
+    opacity:0;
+  }
+}
+
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.image{
+  overflow:hidden;
+  background:#eee;
+}
+.opti-image{
+  transition: 0.2s ease opacity, 0.2s ease filter;
+  opacity:1;
+  filter: blur(0);
+}
+
+.opti-image-before-load{
+  opacity:0;
+  filter: blur(10px);
+}
+/* purgecss end ignore */
