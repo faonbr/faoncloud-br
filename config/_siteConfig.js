@@ -36,7 +36,7 @@ export default {
       target: '_blank'
     },
     {
-      name: 'Versão Ingles',
+      name: 'English Version',
       link: 'https://faoncloud.netlify.com/',
     }
   ],
