@@ -11,7 +11,7 @@ import theCMS from '../cms/netlify/cms'
 export default {
   siteName: 'Cloud 4 Free',
   tagline: 'Aprenda o que pode ser feito com os recursos Free Tier/Always Free de diversos provedores de serviço em nuvem.',
-  featureImage: '/uploads/clouds.jpg',
+  featureImage: '/uploads/home-hero.jpg',
   logo: '/faoncloudlogo.jpg', // 'logo-component', // or '/logo.svg' for regular image
   googleAnalytics: {
     on: true,
