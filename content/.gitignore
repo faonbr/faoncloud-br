@@ -1,8 +1,8 @@
 #FAON Cloud blog doesn't need these
-post/getting-started-with-awake.md
-post/light-css-footprint.md
-post/newsletter-signup.md
-post/post-markup-and-formatting.md
-post/resourcegrid-vue.md
-post/built-for-speed.md
-post/comments-support.md
+posts/getting-started-with-awake.md
+posts/light-css-footprint.md
+posts/newsletter-signup.md
+posts/post-markup-and-formatting.md
+posts/resourcegrid-vue.md
+posts/built-for-speed.md
+posts/comments-support.md
