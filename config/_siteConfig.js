@@ -37,7 +37,7 @@ export default {
     },
     {
       name: 'Versão Ingles',
-      link: 'http://www.faoncloud.com',
+      link: 'https://faoncloud.netlify.com/',
     }
   ],
   hero: {
