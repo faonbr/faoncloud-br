@@ -41,7 +41,7 @@ export const modulesSettings = {
   responsiveLoader: {
     name: 'uploads/[hash:7]-[width].[ext]',
     min: 320, // minimum image width generated (default 640)
-    max: 900 // maximum image width generated (default 1800)
+    max: 900, // maximum image width generated (default 1800)
     steps: 4, // five sizes per image will be generated
     placeholder: false, // no placeholder will be generated
     quality: 65, // images are compressed with medium quality
