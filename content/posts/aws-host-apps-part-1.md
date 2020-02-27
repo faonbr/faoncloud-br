@@ -1,6 +1,6 @@
 ---
-title: Host Applications in AWS Using Free Tier Resources (Part 1)
-subtitle: This is the 1st part of the Host Applications in AWS series.
+title: Rode Aplicações na AWS Usando Recursos Free Tier (Part 1)
+subtitle: Apresentando opções de arquitetura de infraestrutura para aplicações usando recursos free tier.
 category:
   - AWS
 author: Felippe Oliveira Neto (FAON)
@@ -35,4 +35,4 @@ The AWS Always free tier provides Amazon DynamoDB service, a non-relational data
 
 Let's start using the **12 months free** resources from AWS (compute and DB Services) and later explorer DynamoDB usage, because it's part of the **Always Free** tier.
 
-Continue on [Part 2](/aws-host-apps-part-2)
+Continue on [Part 2](/aws-host-apps-part-2).

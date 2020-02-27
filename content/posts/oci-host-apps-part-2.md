@@ -1,6 +1,6 @@
 ---
-title: Host Applications in Oracle Cloud Using Free Tier Resources (Part 2)
-subtitle: This is the 2nd part of the Host Applications in Oracle Cloud series.
+title: Rode Aplicações na Oracle Cloud Usando Recursos Free Tier (Part 2)
+subtitle: Utilizando serviços de database always free na Oracle Cloud.
 category:
   - Oracle Cloud
 author: Felippe Oliveira Neto (FAON)

@@ -1,6 +1,6 @@
 ---
-title: Notify Admins when Oracle Cloud Billing Costs Exceed Free Tier Layer
-subtitle: Configure a billing alarm in Oracle Cloud (OCI).
+title: Notifique os Administradores quando sua Conta na Oracle Cloud exceder o limite Free tier.
+subtitle: Crie Alerta de Gastos na Oracle Cloud (OCI).
 category:
   - Oracle Cloud
 author: Felippe Oliveira Neto (FAON)

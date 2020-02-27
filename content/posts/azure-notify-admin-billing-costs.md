@@ -1,6 +1,6 @@
 ---
-title: Notify Admins when Azure Billing Costs Exceed Free Tier Layer
-subtitle: Configure a billing alarm in Azure.
+title: Notifique os Administradores quando sua Conta na Azure exceder o limite Free tier.
+subtitle: Crie Alerta de Gastos na Azure.
 category:
   - Microsoft Azure
 author: Felippe Oliveira Neto (FAON)

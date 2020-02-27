@@ -1,6 +1,6 @@
 ---
-title: Notify Admins when AWS Billing Costs Exceed Free Tier Layer
-subtitle: Configure a billing alarm in AWS.
+title: Notifique os Administradores quando sua Conta na AWS exceder o limite Free tier.
+subtitle: Crie Alerta de Gastos na AWS.
 category:
   - AWS
 author: Felippe Oliveira Neto (FAON)
