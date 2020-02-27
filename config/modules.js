@@ -40,8 +40,8 @@ export const modulesSettings = {
   axios: axiosSettings,
   responsiveLoader: {
     name: 'uploads/[hash:7]-[width].[ext]',
-    min: 640, // minimum image width generated
-    max: 1800, // maximum image width generated
+    min: 320, // minimum image width generated (default 640)
+    max: 900 // maximum image width generated (default 1800)
     steps: 4, // five sizes per image will be generated
     placeholder: false, // no placeholder will be generated
     quality: 65, // images are compressed with medium quality
