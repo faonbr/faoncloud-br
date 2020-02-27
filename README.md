@@ -1,4 +1,10 @@
-Awake is a Nuxt.js template for generating a beautifully robust static site with blog. 
+Este repositório armazena o conteúdo do blog http://www.faoncloud.com Cloud 4 Free (versão em Português).
+
+O blog está disponibilizado pelo Netlify.com.
+
+A interface do blog é baseada no modelo Awake (Nuxt.js).
+
+Abaixo estão os detalhes do Nuxt.js.
 
 # Features
 
@@ -30,7 +36,7 @@ googleAnalytics: {
 
 # Editing Content
 
-Posts and categories can be edited in Netlify CMS at \[your-site-url]/admin. At this time any new pages must be created in the code itself and committed to the repo. Before you visit the admin for the first time, make sure you have [Netlify Identity](https://www.netlify.com/docs/identity/) setup with your user and make sure "Git Gateway" is enabled via the Identity Settings page in the Netlify admin. 
+Posts and categories can be edited in Netlify CMS at \[your-site-url]/admin. At this time any new pages must be created in the code itself and committed to the repo. Before you visit the admin for the first time, make sure you have [Netlify Identity](https://www.netlify.com/docs/identity/) setup with your user and make sure "Git Gateway" is enabled via the Identity Settings page in the Netlify admin.
 
 # Local Development
 
