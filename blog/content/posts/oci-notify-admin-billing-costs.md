@@ -7,18 +7,18 @@ author: Felippe Oliveira Neto (FAON)
 date: 2020-02-10T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg
 ---
-To create an excessive cost alert on OCI, access the console with your root account (the email you used when you signed up Oracle Cloud), expand the console menu (top left corner), click **Account Management** (under Governance and Administration), and then click **Budgets**.
+Para criar um alerta de custo excessivo na OCI, acesse a console com sua conta principal (o email que você utilizou durante a criação da conta na Oracle Cloud), expanda o menu lateral, clique em **Account Management** (serviço listado em **Governance and Administration**) e clique em **Budgets**.
 
-In the account management console, click **Create Budgets** to create a cost alarm with the following settings:
+Na console de gerenciamento de conta clique em **Create Budgets** para criar um alarme de custos com as seguintes configurações:
 
-Provide the name of the alarm as "_Alarm_for_Billing_Outside_Free_Tier_Usage_" and the description as "_Alarm for Billing Outside Free Tier Usage_" (don't use the quotes).
+Forneça o nome do alarme como "_Alarm_for_Billing_Outside_Free_Tier_Usage_" e a descrição como "_Alarm for Billing Outside Free Tier Usage_".
 
-Select the compartment you will use to create the Free Tier resources. If you haven't created a compartment, see (Providing Access to Free Tier Resources in OCI)[/control-billing-cost-cloud-providers].
+Selecione o compartimento que você irá utilizar para criar os recursos Free Tier. Caso não tenha criado um compartimento, veja Controlando o Acesso aos Recursos Free Tier na Oracle Cloud).
 
-Provide a value of _1_ (one) for the **Monthly Budget Amount** field. This field displays the amount in the currency that has been configured for the Oracle Cloud account.
+Forneça o valor de _1_ (um) para o campo **Monthly Budget Amout**. Este campo apresenta o valor na moeda que foi configurada para a conta Oracle Cloud.
 
-In the **Budget Alert Rule** region, select **Actual Spend** and enter a threshold value of 100% of the budget. **Threshold Type** value must be a percentage.
+Na região **Budget Alert Rule**, selecione **Actual Spend** e entre com um valor de threshold de 100% do budget. O **Threshold Type** deve ser em porcentagem.
 
-Enter the email address you want to receive notification in the **Email Recipients** field, and the message "_Your Free Tier compartment has reached the maximum amount of 1 credit._" in the **Email Message** field.
+Cadastre o email que você deseja receber a notificação no campo **Email Recipients**, e a mensagem "_Your Free Tier compartment has reached the maximum amount of 1 credit._" no campo **Email Message**.
 
-Now every time your consumption of Oracle Cloud resources exceeds the mark established in the alarm, you will receive a notification email alerting the high cost.
+Pronto, toda vez que o seu consumo na Oracle Cloud ultrapassar a marca estabelecida no alarme, você receberá um email de notificação alertando o custo.

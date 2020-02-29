@@ -7,51 +7,51 @@ author: Felippe Oliveira Neto (FAON)
 date: 2020-02-10T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg
 ---
-Before creating Free Tier / Always Free resources (Computes, Storages, Network, …) in Oracle Cloud Infrastructure (OCI) it is important to create users and configure access policies so that these users can manage these resources.
 
-Therefore, it is necessary to understand the concept of compartments introduced by the OCI.
+Antes de criar os recursos Free Tier/Always Free (Computes, Storages, Network, ...) na Oracle Cloud Infrastructure (OCI) é importante criar usuários e configurar políticas de acesso para que estes usuários possam administrar estes recursos.
 
-A compartment is a logical concept with the purpose of grouping the resources to be created Computes, Storages, Network, among others. Every resource in the OCI must be associated with a compartment.
+Para tanto é necessário entender o conceito de compartimentos (Compartments) introduzido pela OCI.
 
-The compartment can be configured with authorization policies, cost alarms, and other resources.
+Compartimento é um recurso lógico com a finalidade de agrupar os recursos a serem criados Computes, Storages, Network, entre outros. Todo recurso na OCI precisa ser associado à um compartimento.
 
-This way, it's possible to designate a group of users who will have administrative privilege on all resources in a compartment.
+Ao compartimento pode-se configurar políticas de autorização, alarmes de custo, e outros recursos.
 
+Desta forma, é possível designar um grupo de usuários que terá privilégio administrativo em todos os recursos de um compartimento.
 
-1. **Creating a Compartment for Free Tier / Always Free Resources**:
+1. **Criação de Compartimento para os Recursos Free Tier/Always Free**:
 
-  Access the OCI console with your root account (the email you used when creating your Oracle Cloud account), expand the side menu, click on **Identity** (service listed under Governance and Administration) and click on **Compartments**.
+    Acesse a console OCI com sua conta principal (o email que você utilizou durante a criação da conta na Oracle Cloud), expanda o menu lateral, clique em **Identity** (serviço listado em **Governance and Administration**) e clique em **Compartments**.
 
-  Click **Create Compartment**, provide name and description as "_AlwaysFree_", make sure **Parent Compartment** is the root and click **Create Compartment**.
+    Clique **Create Compartment**, forneça nome e descrição como "_AlwaysFree_", certifique-se que o **Parent Compartment** seja o root e clique em **Create Compartment**.
 
-2. **Creation of Administration User Group**:
+2. **Criação de Grupo de Usuários de Administração**:
 
-  In the **Identity** service side menu, click **Groups**, and then click **Create Group**.
+    No menu lateral do serviço **Identity**, clique em **Groups** e depois clique em **Create Group**.
 
-  Provide name and description as "_AlwaysFreeAdminGroup_" and click **Create**.
+    Forneça nome e descrição como "_AlwaysFreeAdminGroup_" e clique em **Create**.
 
-3. Create Administrative Access Policy for the "AlwaysFree" compartment:
+3. **Criação da política de Acesso Administrativo no Compartimento "AlwaysFree"**:
 
-  In the **Identity** service side menu, click **Policies**. Make sure that the compartment selected in the **List Scope** is **AlwaysFree** (if not, select this value) and then click **Create Policy**.
+    No menu lateral do serviço Identity, clique em Policies. Certifique-se que o compartimento selecionado na **List Scope** é o **AlwaysFree** (selecione caso não seja) e depois clique em **Create Policy**.
 
-  Provide name and description with "AlwaysFree_Policy", and in the **Statement 1** field in the **Policy Statements** area, enter the following value "Allow group AlwaysFreeAdminGroup to manage all-resources in compartment AlwaysFree" (do not use quotes), and then click **Create**.
+    Forneça nome e descrição com "_AlwaysFree_Policy_", e no campo **Statement 1** na área **Policy Statements** entre com o seguinte valor "_Allow group AlwaysFreeAdminGroup to manage all-resources in compartment AlwaysFree_" (não use as aspas) e clique em Create.
 
-  This policy gives every user who is a member of the AlwaysFreeAdminGroup group full control over the features of the AlwaysFree compartment.
+    Esta política concede à todo usuário que é membro do grupo **AlwaysFreeAdminGroup** controle total nos recursos do compartimento **AlwaysFree**.
 
-4. **Administration User Creation**:
+4. **Criação de Usuário de Administração**:
 
-  Navigate back to the **Identity** service page, click **Users**, and then click **Create User**.
+    Volte à página do serviço **Identity**, clique em **Users** e clique em **Create User**.
 
-  You can create users using email in the name field, or a login. In this example, we create the account with name and description "_alwaysfreeadminuser_", and the value of the email field being "_alwaysfreeadminuser@mydomain.com_".
+    Você pode criar usuários utilizando o email no campo nome, ou um login. Neste exemplo, criamos a conta com nome e descrição "_alwaysfreeadminuser_",  e com o valor do campo email sendo "_alwaysfreeadminuser@mydomain.com_".
 
-  Click **Create** to create the user.
+    Clique **Create** para criar o usuário.
 
-  In the list of users, click the name of the newly created user. In the side menu click **Groups** and click **Add User to Group**. Select **AlwaysFreeAdminGroup** from the list and click **Add**.
+    Na lista de usuários, clique no nome do usuário recém criado. No menu lateral clique em **Groups** e clique **Add User to Group**. Selecione **AlwaysFreeAdminGroup** da lista e clique **Add**.
 
-  Back to the list of users, click the name of the newly created user again, and click **Create / Reset Password** to set a temporary password for this user. The first time this user logs in to the OCI console, they must change the password.
+    Na lista de usuários, clique no nome do usuário recém criado e clique em **Create/Reset Password** para definir uma password temporária para este usuário. A primeira vez que o usuário se logar na console OCI ele deverá alterar a senha.
 
-  To ensure a higher level of security access, click **Enable Multi-Factor Authentication** for this user, and enable a device for 2 step authentication.
+    Para garantir mais segurança no acesso deste usuário, clique na opção **Enable Multi-Factor Authentication** e habilite um dispositivo (Device) para autentição em 2 etapas deste usuário.
 
-When logging in to the console, the administrative user must select the **AlwaysFree** compartment to be able to manage resources.
+Após se logar na console, o usuário deverá selecionar o compartimento **AlwaysFree**. Utilize o usuário administrativo criado neste post para criar e gerenciar os recursos Free Tier.
 
-This administrator user will be referenced in future posts.
+Este usuário será referenciado nos posts futuros.
