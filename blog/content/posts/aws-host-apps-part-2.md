@@ -23,35 +23,35 @@ Abaixo temos uma representação em alto nível da infraestrutura necessária pa
 
 ![Arquitetura AWS IaaS-Only-Single-Server](/uploads/aws/aws-iaas-only-single-server-architecture.jpg)
 
-1. To create the VPC, expand the **Services** menu at the top, and then filter the search for "_VPC_".
+1. Para criar uma VPC, abra o menu **Services** no topo da página, e procure por "_VPC_".
 
-    AWS provides a wizard to simplify the VPC creation process. In the VPC Dashboard page, click **Launch VPC Wizard**, and select the template **VPC with a Single Public Subnet**.
+    A AWS possue templates para simplificar a criação da VPC e seus componentes. Na página de dashboard da VPC, click em **Launch VPC Wizard** e selecione o template **VPC with a Single Public Subnet**.
 
-    In the wizard provide the **VPC name** as "_Free Tier VPC_", select an **Availability Zone** for the public subnet, change the name of the public subnet to "_Frontend Subnet_", and then click **Create VPC**.
+    Defina o nome da VPC como "_Free Tier VPC_", selecione uma **Availability Zone** para a subnet pública, altere o nome da subnet para "_Frontend Subnet_", e click em **Create VPC**.
 
-    After the service is created, click **OK** to see the details of the newly created VPC.
+    Após a criação do serviço, click **OK** para ver os detalhes da VPC criada.
 
-2. Create and deploy your EC2 instance into the **Frontend Subnet**.
+2. Crie uma instância de EC2 e disponibilize na subnet **Frontend Subnet**.
 
-    When creating an EC2 instance, make sure to select an **Amazon Machine Image (AMI)** and a type with the label **Free tier eligible**. For Example, **Amazon Linux 2 AMI** and **t2.micro**. See [AWS Free Tier](https://aws.amazon.com/free) for more details.
+    Durante a criação da EC2, certifique-se de selecionar a imagem como sendo **Amazon Machine Image (AMI)** e um tipo identificado como **Free tier eligible**. Por exemplo, **Amazon Linux 2 AMI** and **t2.micro**. Veja [AWS Free Tier](https://aws.amazon.com/free) para mais detalhes.
 
-    Deploy the instance to the "_Free Tier VPC_" network and "_Frontend Subnet_", and make sure to enable **Auto-assign Public IP**.
+    Disponibilize a instância na VPC "_Free Tier VPC_" e na subnet "_Frontend Subnet_". Certifique-se de clicar em **Auto-assign Public IP** para que a AWS defina um IP público para a instância EC2.
 
-    By default an **8 Gb** boot volume is allocated to the instance. Make sure it's enough space for your application. Usually is!
+    Por padrão o boot volume da instância tem **8 Gb**. De maneira geral, é espaço suficiente para deploy de uma aplicação.
 
-    In the **Add Tags** step, add a tag **Name** with value as "_Frontend-Server_".
+    No passo **Add Tags**, forneça a tag "_Name_" com o valor ""_Frontend-Server_".
 
-    In the **Configure Security Group** step, rename the **Security group name** to "_Frontend-Security-Group_".
+    No passo **Configure Security Group**, renomeie o **Security group name** para "_Frontend-Security-Group_", para facilitar a visualização.
 
-    Use this instance to deploy and run both your application and database.
+    Após a instância estar rodando, conecte-se e instale a aplicação, packages e o banco de dados.
 
-3. Create a **Network Load Balancer**
+3. Crie um load balancer do tipo **Network Load Balancer**
 
-    You may create a load balancer and assign this EC2 instance to a target group. AWS provides 750 hours of **Elastic Load Balancer** in the **12 months free** tier.
+    É recomendado o uso de um load balancer para a aplicação devido ao fato do IP da instância EC2 mudar após restarts, caso você não tenha reservado um IP (operação que tem custo).
 
-    The load balancer type needs to be **Network Load Balancer**, configured to do health check on the application's port number. An **Application Load Balancer** requires two compute instances to balance request between them. That's why you need to set up a **Network Load Balancer**.
+    Crie um load balancer e associe a instância EC2 ao target group do load balancer. A AWS fornece 750 horas de **Elastic Load Balancer** na opção **12 months free**. Configure o health check na porta da aplicação. O load balancer só retornará status ok quando a aplicação estiver no ar.
 
-**IaaS-Only-Two-Servers Architecture**:
+**Arquitetura IaaS-Only-Two-Servers**:
 
 If you want to segregate the application layer from the database layer into two separate compute instances, then you need to create a separate compute instance in a backend private subnet.
 
