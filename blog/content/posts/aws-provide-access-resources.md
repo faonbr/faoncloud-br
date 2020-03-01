@@ -1,5 +1,5 @@
 ---
-title: Configure Acesso aos Recursos Free Tier na AWS
+title: Configurando Acesso aos Recursos Free Tier na AWS
 subtitle: Crie Usuários para Gerenciar os Recursos na AWS.
 category:
   - AWS

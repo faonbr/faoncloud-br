@@ -7,50 +7,50 @@ author: Felippe Oliveira Neto (FAON)
 date: 2020-02-15T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg
 ---
-In the first part of this topic ([Part 1](/oci-host-apps-part-1)), we introduced the 1st option of infrastructure architecture using Oracle Cloud Always resources that you can use to deploy your CRUD web application to the internet. This architecture was called "IaaS-Only".
+Na primeira parte deste tópico (veja ([Parte 1](/oci-host-apps-part-1)), apresentamos a arquitetura de infraestrutura chamada "IaaS-Only", que contempla o uso de recursos Oracle Cloud Always Free. Nesta arquitetura utilizamos somente recursos de infraestrutura (Network e Computes) para instalar e rodar aplicações web.
 
-As the second option of architecture, instead of using an always free compute to host the application database you can make use of Oracle Autonomous Database Always Free. We call this architecture "IaaS-DBServices".
+Nesta segunda parte, apresentamos uma segunda opção de arquitetura de infraestrutura que utiliza o recurso autonomous database Always Free da Oracle Cloud como base de dados da aplicação web.
 
-**IaaS-DBServices Architecture**:
+**Arquitetura  IaaS-DBServices**:
 
-The IaaS-DBServices architecture uses an instance of **Autonomous Transaction Process** (ATP) to host the web application data.
+A arquitetura IaaS-DBServices utiliza uma instância de **Autonomous Database** do tipo **Transaction Process** (ATP) para servir de base de dados para a aplicação web.
 
 ![IaaS-DBServices Architecture](/uploads/oci/oci-iaas-dbservices-architecture.jpg)
 
-By using this architecture, it isn't necessary to create the infrastructure for the database, because the Autonomous database services is a serverless service and Oracle handles the infrastructure.
+Neste cenário, dado a utilização de recursos de database autônoma, não é necessário criação de infraestrutura (compute) para utilização do banco de dados.
 
-This allows the architect to make use of the backend server to another purpose, such as host the web application and make use of the load balancer to balance requests between the two instances; or use to host a REST API interface.
+Sendo assim, temos disponível 2 computes always free que podem ser utilizadas como servidores de frontend ou utilizadas separadamente: uma delas como servidor de frontend e a outra como servidor de backend para serviço REST API, depedendo do cenário da aplicação a ser construída.
 
-1. In the first option, you create two frontend servers in the frontend subnet, and then set up the load balancer's Backend Set to distribute the load between the two instances.
+1. Na primeira opção, utilize 2 servidores (computes) na camada frontend para balancear a carga através do **Backend Set** no Load Balancer, e permitir disponibilizar mais aplicações web com as computes Always Free.
 
   ![Frontend Subnet](/uploads/oci/oci-frontend-subnet-2-details.jpg)
 
-  After you create the first compute, execute all the required steps to configure the instance, such as update the operating system, install application packages, binaries, and then deploy the application to the instance's boot volume.
+  Após criar a primeira compute, conecte e execute todos os passos necessários de  configuração: atualização de sistema operacional, instalação de packages, e deploy da aplicação no storage de boot do servidor.
 
-  Create a boot volume clone, and then create the second instance from the boot volume clone. Don't forget to set the instance up as Always Free.
+  Posteriormente, crie um clone do Boot Volume e crie a segunda instância frontend à partir do boot volume clonado. Lembrando de escolher o shape que tenha a indicação **Always Free** para a compute.
 
-2. If your requirement is to have a REST API interface for your web application or expose a REST API to the internet, then you can use the available compute as a backend server.
+2. Caso seja requisito ter uma camada de serviço REST API para aplicação web ou disponibilizar serviços REST API para a internet, você pode utilizar  uma das computes como servidor de backend.
 
   ![Backend Subnet](/uploads/oci/oci-backend-subnet-2-details.jpg)
 
-  As in the IaaS-Only architecture, the access to the backend server needs to be made through the bastion host (frontend server).
+  Da mesma forma que na arquitetura IaaS-Only, o acesso à compute de backend é feito através do bastion host da subnet Frontend.
 
-The same concepts and patterns which are applied to the IaaS-Only architecture can be applied to this IaaS-DBServices architecture. Though it's important to mention:
+As mesmas características e padrões aplicados na arquitetura IaaS-Only também são aplicados nesta arquitetura IaaS-DBServices. Porém, alguns detalhes são importantes resaltar:
 
-* It's highly recommended to create a separate compartment for the database. By using a separate compartment, it's possible to segregate the administrative access to the database from the rest of the infrastructure resources by using policies in the IAM. See [Configure Access to Free Tier Resources in Oracle Cloud (OCI)](/oci-provide-access-resources).
+* Recomendado criar um compartimento para o database diferente do compartimento utilizado pelos demais itens da infraestrutura. Desta forma, é possível segregar o acesso administrativo à infraestrutura e do banco de dados entre os usuários administrativos através da criação de políticas no IAM. Veja [Configure Acesso aos Recursos Free Tier na Oracle Cloud (OCI)](/oci-provide-access-resources).
 
-* Make sure to select the database compartment during the autonomous database creation process.
+* Certifique-se de escolher este compartimento na criação do autonomous database.
 
-* For a CRUD web application use an **Autonomous Transaction Processing** (ATP) instance.
+* Para utilização com uma aplicação web CRUD, utilize um banco de dados **Autonomous Transaction Processing** (ATP) instance.
 
-* Make sure to select the Always Free flag during the creation process. The database capacity will be limited and some stop/terminate rules will be presented to you on the screen.
+* Durante a criação do banco de dados, escolha a configuração de database indicada pela marca **Always Free**. A capacidade do banco de dados será limitada porém você não pagará por este serviço.
 
   ![ATP Always Free flag](/uploads/oci/oci-atp-always-free-flag.jpg)
 
-* Configure Access Control Rules to restrict the access to the database from within the Virtual Cloud Network (VCN). Choose your VCN's compartment and then choose the web application's VCN.
+* Configure regras de controle de acesso (**Access Control Rules**) ao banco de dados limitando o acesso ao banco de dados para uma virtual cloud network (VCN). Escolha o compartimento da sua VCN e selecione a virtual cloud network da aplicação web.
 
-* To allow you to connect from your desktop and execute the initial database set up (table creation and data insertion), make sure to add an **Access Control List** to allow access from the internet (IP Address _0.0.0.0/0_).
+* Para configuração inicial do banco de dados da aplicação (criar tabelas e polular os dados iniciais) você pode liberar o acesso Access Control List para a internet (IP 0.0.0.0/0) ou para o IP da sua máquina.
 
-  For safety reasons, only keep this setting up for the time you need for this initial set up. Remove the rule when you don't need to connect directly to the database from your desktop.
+    Por medida de segurança, configure a Access Control List para acesso desta forma somente durante o período de setup inicial da base ou algum tipo de manutenção. Nos demais momentos, remova a regra.
 
-  You can also use the tools available from the instance's **Service Console** to connect to the database and execute SQL commands.
+Você pode utilizar as ferramentas disponíveis na console da instância para carregar dados ou realizar manutenções na base através de comandos SQL.

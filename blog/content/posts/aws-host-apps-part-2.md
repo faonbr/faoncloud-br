@@ -1,5 +1,5 @@
 ---
-title: Rode Aplicações na AWS Usando Recursos Free Tier (Part 2)
+title: Executando Aplicações na AWS Usando Recursos Free Tier (Part 2)
 subtitle: Utilizando instancias de EC2 para rodar a aplicação e database na AWS.
 category:
   - AWS
@@ -7,21 +7,21 @@ author: Felippe Oliveira Neto (FAON)
 date: 2020-02-25T19:59:59.000Z
 featureImage: /providers/logos/aws.jpg
 ---
-In the first part of this topic ([Part 1](/aws-host-apps-part-1)), we showed you the list of services available in AWS' Free Tier layer as well as the **12 months free** resources.
+No primeiro post desta série, ([Parte 1](/aws-host-apps-part-1)), abordamos alguns serviços free tier que podem ser utilizados para disponibilizar suas aplicações web. Mostramos serviços classificados como **Free Tier** e também gratuítos por 12 meses a partir da criação da conta na AWS.
 
-In this post, we explorer some AWS infrastructure models for running web applications using the limits established by the free tiers.
+Neste post, vamos explorar alguns modelos de infraestrutura que podemos utilizar para uma aplicação web, dentro dos limites estabelecidos pelos serviços gratuítos.
 
-Make sure to use an administrative user instead of your AWS' root account to create and manage the resources. See [Configure Access to Free Tier Resources in AWS](/aws-provide-access-resources).
+Primeiramente, certifique-se de utilizar um usuário com permissões administrativas nos recursos e não o usuário root da sua conta (aquele criado durante o registro na AWS). Veja [Configurando Acesso aos Recursos Free Tier na AWS](/aws-provide-access-resources).
 
-**IaaS-Only-Single-Server Architecture**:
+**Arquitetura IaaS-Only-Single-Server**:
 
-The first model is to use a single compute instance to host both the application layer and the database layer for your CRUD (Create/Read/Update/Delete) web application.
+O primeiro modelo usa uma única instância de compute para abrigar tanto a aplicação web CRUD (Create/Read/Update/Delete) quanto o servidor de banco de dados.
 
-This compute instance need to be deployed to a public subnet.
+Esta compute deve estar disponibilizada numa subnet publica para que possa ser acessível via SSH.
 
-Below is a high-level graph representation of the infrastructure for an application comprised by a single EC2 instance that runs both the web application and the database. A Network Load Balancer routes the traffic to the server.
+Abaixo temos uma representação em alto nível da infraestrutura necessária para rodar a aplicação. Esta infraestrutura é composta por uma única instância de EC2 que servirá para rodar a aplicação web e a base de dados. Um balanceador de carga (**Network Load Balancer**) faz o roteamento do trafico da internet para o servidor web.
 
-![AWS IaaS-Only-Single-Server Architecture](/uploads/aws/aws-iaas-only-single-server-architecture.jpg)
+![Arquitetura AWS IaaS-Only-Single-Server](/uploads/aws/aws-iaas-only-single-server-architecture.jpg)
 
 1. To create the VPC, expand the **Services** menu at the top, and then filter the search for "_VPC_".
 

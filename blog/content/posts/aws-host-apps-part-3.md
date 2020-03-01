@@ -1,5 +1,5 @@
 ---
-title: Rode Aplicações na AWS Usando Recursos Free Tier (Part 3)
+title: Executando Aplicações na AWS Usando Recursos Free Tier (Part 3)
 subtitle: Utilizando Amazon DynamoDB como database para a aplicação web na AWS.
 category:
   - AWS
@@ -7,7 +7,7 @@ author: Felippe Oliveira Neto (FAON)
 date: 2020-02-27T19:59:59.000Z
 featureImage: /providers/logos/aws.jpg
 ---
-This is the third part of this series (See [Part 1](/aws-host-apps-part-1) and [Part 2](/aws-host-apps-part-2)) where we show how to deploy applications to AWS using free resources.
+This is the third part of this series (See [Parte 1](/aws-host-apps-part-1) e [Parte 2](/aws-host-apps-part-2)) where we show how to deploy applications to AWS using free resources.
 
 The infrastructure model presented here uses an Amazon EC2 instance and Amazon DynamoDB to hold the application and its data, respectively.
 
