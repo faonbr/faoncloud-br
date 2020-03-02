@@ -53,55 +53,54 @@ Abaixo temos uma representação em alto nível da infraestrutura necessária pa
 
 **Arquitetura IaaS-Only-Two-Servers**:
 
-If you want to segregate the application layer from the database layer into two separate compute instances, then you need to create a separate compute instance in a backend private subnet.
+Se você precisa segregar a camada da aplicação da camada de database em 2 instâncias EC2, então recomendamos criar a segunda instnância (backend server) em uma subnet privada de backend.
 
-In order to keep your spending in the free tier and because of the 750-hours-of-compute-time free tier limit, you need to abdicate the 24/7 requirement and schedule your server to run only 12hs per day.
+Para manter os gastos na AWS gratuítos e por causa da restrição de 750 horas de computação que o free tier possue, você precisará abdicar do requiremento de sua aplicação estar no ar 24 horas por dia. Será ncessário parar as 2 instâncias EC2 por 12 horas todos dias.
 
-![IaaS-Only-Two-Servers Architecture](/uploads/aws/aws-iaas-only-2-servers-architecture.jpg)
+![Arquitetura IaaS-Only-Two-Servers](/uploads/aws/aws-iaas-only-2-servers-architecture.jpg)
 
-1. Before creating the Virtual Private Network (VPC), you need to allocate an Elastic IP Address from AWS's pool to be used by the NAT Gateway (the resource that allows the backend to communicate to the internet - the NAT Gateway will only be used during backend set up process. You won't use it later on as charges may apply).
+1. Antes de criar a **Virtual Private Network** (**VPC**), você precisa alocar um **Elastic IP Address** do pool da AWS para ser utilizado pelo **NAT Gateway** (necessário para permitir que o backend server possa se comunicar com a internet para baixar updates e packages. Posteriormente à configuração inicial da instância, você poderá desabilitar o **NAT Gateway** e liberar o IP).
 
-    Log in the AWS Console as an administrative user, click **EC2** under **Compute** group, and from the left menu click **Elastic IPs**. Allocate an elastic IP address from **Amazon's pool of IPv4 addresses**.
+    Acesse a console AWS como usuário administrativo, click **EC2** no agrupamento **Compute**, e no menu lateral click **Elastic IPs**. Destine um IP do  **Amazon's pool of IPv4 addresses**.
 
-2. To create the VPC, expand the **Services** menu at the top, and then filter the search for "_VPC_".
+2. Para criar a VPC, expand o menu **Services** no topo, e procure por "_VPC_".
 
-    In the VPC Dashboard page, click **Launch VPC Wizard**, and select the template **VPC with a Public and Private Subnet**.
+    Na página da VPC, click **Launch VPC Wizard**, e selecione o template **VPC with a Public and Private Subnet**.
 
-    In the wizard provide the **VPC name** as "_Free Tier VPC_", select an **Availability Zone** for both public and private subnet, rename the public as "_Frontend Subnet_" and the private subnet as "_Backend Subnet_", select the elastic IP address for the NAT Gateway, and then click **Create VPC**.
+    Na tela de wizard entre com o valor "_Free Tier VPC_" para **VPC name**, selecione **Availability Zone** para as subnets pública e privada, renomeie a subnet pública com o nome "_Frontend Subnet_" e a privada como "_Backend Subnet_", selecione o elastic IP Addree para o NAT Gateway e por fim clique em **Create VPC**.
 
-    After the service is created, click **OK** to see the details of the newly created VPC.
+    Depois que o serviço for criado, clique **OK** para ver os detalhes da VPC.
 
-    **Note**: Make sure to remove the NAT Gateway after you set up the database server, because as per AWS' pricing model "_...you are charged for each “NAT Gateway-hour" that your NAT gateway is provisioned and available...Each partial NAT Gateway-hour consumed is billed as a full hour._"
+    **Nota**: Certifique-se de remover o NAT Gateway depois que você instalar e configurar a instância de backend com a database, packages e updates do sistema operacional, porque de acordo com o modelod de preço da AWS o NAT Gateway é um serviço cobrado por hora de uso.
 
-3. Create and deploy your EC2 instances into the subnets.
+3. Crie as instâncias EC2 nas subnets.
 
-    Create an EC2 instance and deploy it to the  
+    Crie uma instância de EC2 em cada subnet. Para a instância da subnet de frontend, a tag **Name** deve ter o valor "_Frontend-Server_", e a de backend "_Backend-Server_".
 
-    In the **Add Tags** step, provide **Name** as "_Frontend-Server_".
+    Em cada instância é aconselhável renomear o **Security Group name** como "_Frontend-Security-Group_" e "_Backend-Security-Group_".
 
-    In the **Configure Security Group** rename the **Security group name** as "_Frontend-Security-Group_".
+    No security group de backend, configure uma regra de egress da seguinte forma: No **Source** entre o CIDR IP da subnet de frontend, na **Description** "_Access from the bastion host_"  e **Port Range 22**.
 
-    In the **Configure Security Group** step, enter **Source** IP address as "_10.0.1.0/24_" and **Description** as "_Access from the bastion host_" for the **Port Range 22** entry.
+4. Crie um Load Balancer do tipo **Network Load Balancer**
 
-4. Create a **Network Load Balancer**
+    Do mesmo jeito que na **Arquitetura IaaS-Only-Single-Server**, crie um load balancer e aponte para a instância EC2 de frontend. AWS provê 750 horas de **Elastic Load Balancer** na camada **12 months free**.
 
-    The same way the way for the **IaaS-Only-Single-Server Architecture**, you may create a load balancer and assign this EC2 instance to a target group. AWS provides "_750 hours_" of **Elastic Load Balancer** in the **12 months free** tier.
+5. Automatize o start e stop das intâncias EC2.
 
-5. Schedule instances to start and stop automatically
+    Por causa do limite de 750 horas de computação no free tier, é necessário manter as intâncias rodando somente 12 horas por dia.
 
-    Because of the limit of 750 hours of compute of the free tier, you need to keep your compute instances running only 12hs per day.
+    Para automaticamente parar as intâncias e religar as mesmas 12 horas depois, use o **Amazon Lambda** com **CloudWatch Events** ou configure **AWS Instance Scheduler**.
 
-    To automatically accomplish this, use **Lambda** functions and **CloudWatch Events** or set up **AWS Instance Scheduler** to start your instances and stop them after 12 hours they are running every day.
+    **AWS Lambda** é um serviço classificado no **Always Free** que possue limite de "_1 Million free requests per month_" (1 milhão de execuções). Execuções suficientes para parar e iniciar as instâncias durante um ano (período do "free tier"). O  **CloudWatch Events** e também **AWS Instance Scheduler** são serviços pagos.
 
-    **AWS Lambda** is part of the **Always Free** tier providing "_1 Million free requests per month_". Enough requests to start and stop the instances every day. **CloudWatch Events** as well as **AWS Instance Scheduler** may incur in charges.
+    A AWS fornece em sua documentação 2 tutorias que ajudam a configurar as instâncias para stop-start em intervalos regulares:
 
-    AWS documentation provides two tutorials to help you to configure your Amazon EC2 instances to stop and start at regular intervals:
     * [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
 
     * [How do I stop and start my instances using the AWS Instance Scheduler?](https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/)
 
-    **Note**: Remember to apply these for both the frontend and the backend servers.
+    **Note**: Lembre-se de aplicar estas configurações para ambas as instâncias de EC2.
 
-As a General Note, the billing alarm you've set in the [Notify Admins when AWS Billing Costs Exceed Free Tier Layer](/aws-notify-admin-billing-costs) post will be triggered if you select a resource which isn't part of the free tier.
+Como nota geral, é importante resaltar o papel do alarme de custo que recomendamos configurar no post [Notifique os Administradores quando sua Conta na AWS exceder o limite Free tier](/aws-notify-admin-billing-costs), que será acionado sempre que você exceder o limite estabelecido nele.
 
-Continue on [Part 3](/aws-host-apps-part-3).
+Continua na [Parte 3](/aws-host-apps-part-3).
