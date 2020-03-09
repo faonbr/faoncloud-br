@@ -69,9 +69,9 @@ Depois de configurar a camada de aplicação, acesse o serviço Amazon DynamoDB 
 
     Sua aplicação web necessitará utilizar a SDK da AWS (**AWS SDK**) como parte integrante das packages e libraries.
 
-    A SDK está disponível para várias linguagens de programação. Escolha de acordo com a linguagem de sua aplicação web. Veja [Getting Started with the DynamoDB SDK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html)
+    A SDK está disponível para várias linguagens de programação. Escolha a SDK de acordo com a linguagem de sua aplicação web. Veja [Getting Started with the DynamoDB SDK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html)
 
-    Use the SDK to make your application to query your DynamoDB tables. The following excerpt is from a Node.js application querying a table called "_App-Table1_" and return the collection as response to the browser:
+    Use a SDK do DynamoDB para fazer sua aplicação se comunicar com o DynamoDB para realizar consultas na base. O trecho de código seguinte é de uma aplicação Node.JS que realiza uma consulta na base do DynamoDB, em uma tabela chamada "_App-Table1_" e retorna a coleção em formato JSON como resposta para o browser:
     ```
     var aws = require('aws-sdk');
     aws.config.update({region: "us-east-1"});
@@ -81,8 +81,9 @@ Depois de configurar a camada de aplicação, acesse o serviço Amazon DynamoDB 
       TableName: "App-Table1"
     };
     ...
-    //There is a limit of 1Mb of messages the _scan_ function can bring each call.
-    //You need to recursively call the function (not shown here) if your table contains more than 1Mb of raw data.
+    //Há um limite de 1M para o tamanho das mensagens retornadas através da função _scan_.
+    //Caso a tabela contenha mais do que 1Mb de dado, será necessário implementar chamadas recursivas à função.
+    //Estas chamadas recursivas não estão implementadas neste código.
     dynamodb.scan(params, function(err, data) {
       if (err){
         logger.log(err, err.stack); // an error occurred
@@ -94,18 +95,16 @@ Depois de configurar a camada de aplicação, acesse o serviço Amazon DynamoDB 
       }
     });
     ```
+    O [Guia de Desenvolvimento](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html) do AWS DynamoDB provê exemplos de funções CRUD em várias linguagens de programação.
 
-    AWS DynamoDB [Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html) provides examples of other query-functions, as well as how to use the SDK for other programming languages.
+Pessoalmente, eu acho que o modelo de arquitetura utilizando o DynamoDB é melhor do que o modelo somente IaaS (IaaS-only) não somente porque você pode manter a instância EC2 rodando 24/7 dentro dos limites do free tier de 12 meses, mas também porque a AWS é responsável pelo gerenciamento da infraestrutura da base de dados (O DynamoDB é um serviço serverless da Amazon).
 
-I personally think this approach (using DynamoDB as the data source for your application) is better than the IaaS-only approach not only because you can keep your frontend instance running 24/7 for an year for free (at least), but also because you don't need to deal with the underlining infrastructure for the database tier and rely on Amazon serverless service for it.
+**Arquitetura IaaS-DBServices**:
 
-**IaaS-DBServices Architecture**:
+Se sua aplicação utiliza uma base de dados convencional (SQL) para armazenar os dados de negócio, você pode utilizar o serviço **Amazon RDS**. A infraestutura para este modelo é similiar à infraestrutura IaaS-DynamoDB, porém utilizando o Amazon RDS ao invés do DynamoDB.
 
-You can use **Amazon RDS*** to store your application data. The infrastructure for this architecture would be quite similar to the IaaS-DynamoDB one, except that instead of using DynamoDB, you would use Amazon RDS.
+![Detalhes da Subnet Frontend](/uploads/aws/aws-iaas-dbservices-architecture.jpg)
 
-![Frontend Subnet details](/uploads/aws/aws-iaas-dbservices-architecture.jpg)
+Para este modelo, observe que o **Amazon RDS** é parte da oferta **12 months free**, e em sua documentação a AWS explica o seguinte: "_750 Hours per month of db.t2.micro database usage (applicable DB engines)_". Isto significa que nem todos os tipos de base de dados disponíveis no RDS são suportados pelo free tier. O **Amazon Aurora** é, porém há cobrança pela quantidade de dados consumidos/consultados (_data transfer out_).
 
-For this approach, keep in mind that **Amazon RDS** is part of the **12 months free** tier, and the limits is "_750 Hours
-per month of db.t2.micro database usage (applicable DB engines)_". Which means that not all database flavors are supported in the free tier, but **Amazon Aurora** is but data transfer out of the database is charged.
-
-Also, if you follow this approach  make sure to assign "_AmazonRDSFullAccess_" policy to the IAM Role that you assign to the EC2 instance.
+    **Nota**: Para utilizar este modelo é necessário que a role do IAM esteja configurada com a política "_AmazonRDSFullAccess_" e designada para a instância EC2 de frontend.
