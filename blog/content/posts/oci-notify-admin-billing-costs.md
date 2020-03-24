@@ -2,7 +2,7 @@
 title: Notifique os Administradores quando sua Conta na Oracle Cloud exceder o limite Free tier.
 subtitle: Crie Alerta de Gastos na Oracle Cloud (OCI).
 category:
-  - Oracle Cloud
+  - Oracle
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-10T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg

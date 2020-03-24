@@ -2,7 +2,7 @@
 title: Rode Aplicações na Oracle Cloud Usando Recursos Free Tier (Part 1)
 subtitle: Apresentando opções de arquitetura de infraestrutura para aplicações usando recursos free tier.
 category:
-  - Oracle Cloud
+  - Oracle
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-13T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg

@@ -1,5 +1,5 @@
 ---
-name: Oracle Cloud
+name: Oracle
 image: /providers/logos/oci.jpg
 ---
 Utilize recursos gratuítos da Oracle Cloud para disponibilizar suas aplicações web.

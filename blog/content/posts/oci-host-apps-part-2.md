@@ -2,7 +2,7 @@
 title: Rode Aplicações na Oracle Cloud Usando Recursos Free Tier (Part 2)
 subtitle: Utilizando serviços de database always free na Oracle Cloud.
 category:
-  - Oracle Cloud
+  - Oracle
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-15T19:59:59.000Z
 featureImage: /providers/logos/oci.jpg

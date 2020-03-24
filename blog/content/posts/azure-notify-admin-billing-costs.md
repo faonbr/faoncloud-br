@@ -2,7 +2,7 @@
 title: Notifique os Administradores quando sua Conta na Azure exceder o limite Free tier.
 subtitle: Crie Alerta de Gastos na Azure.
 category:
-  - Microsoft Azure
+  - Azure
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-20T19:59:59.000Z
 featureImage: /providers/logos/azure.jpg

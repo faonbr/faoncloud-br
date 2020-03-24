@@ -2,7 +2,7 @@
 title: Controle os Gastos nos Provedores de Nuvem
 subtitle: Configure limites de gastos na nuvem e receba notificações dos provedores quando os consumo exceder o limite estabelecido.
 category:
-  - All Cloud Providers
+  - Geral
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-07T19:59:59.000Z
 featureImage: /uploads/money.jpg

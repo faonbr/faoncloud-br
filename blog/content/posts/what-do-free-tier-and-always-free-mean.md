@@ -2,7 +2,7 @@
 title: O que significa Free Tier ou Always Free?
 subtitle: Entenda que são recursos Free Tier ou Always Free.
 category:
-  - All Cloud Providers
+  - Geral
 author: Felippe Oliveira Neto (FAON)
 date: 2020-02-07T19:59:59.000Z
 featureImage: /uploads/questionmark.jpg
