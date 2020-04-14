@@ -15,6 +15,7 @@
           <p>Após os anos de consultoria, dediquei os 3 anos seguintes à criar e publicar tutoriais, vídeos sobre caso de uso para o serviço de plataforma (PaaS) Oracle Identity Cloud Service no time de User Assistance da Oracle.</p>
           <p>A partir de 2019 foquei nos estudos e aprendizado nos diversos provedores de infraestrutura na nuvem (IaaS).</p>
           <p>Com os estudos conseguiu as certificações de arquiteto Oracle Cloud Infrastructure e Amazon Web Services no ínicio de 2020.</p>
+          <p>Hoje trabalho na TOTVS, na torre de varejo, como especialista em desenvolvimento de software para Omni Channel.</p> 
     			<table cellspacing="10">
     				<tbody>
     					<tr>
